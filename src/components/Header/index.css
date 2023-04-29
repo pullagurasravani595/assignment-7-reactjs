@@ -1,0 +1,54 @@
+.logo-img {
+  width: 90px;
+  height: 30px;
+}
+
+.profile-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.theme-profile-logout-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  width: 100%;
+  background-color: #ffffff;
+  padding-left: 18px;
+  padding-right: 20px;
+}
+
+.theme-icon {
+  margin-right: 8px;
+}
+
+.logout-btn {
+  color: #3b82f6;
+  border: 1px solid #4f46e5;
+  line-height: 1;
+  height: 28px;
+  background-color: transparent;
+}
+
+.header-container-theme {
+  background-color: #383838;
+}
+
+.sun-theme {
+  color: #ffffff;
+}
+
+.logout-black-theme {
+  color: #f9f9f9;
+  border: 1px solid #f8fafc;
+}
