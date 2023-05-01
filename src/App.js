@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import ThemeSelector from './context/ThemeSelector'
 import ProtectedRouter from './components/ProtectedRouter'
+import VideoCardItemDetails from './components/VideoCardItemDetails'
 import './App.css'
 
 // Replace your code here
@@ -23,6 +24,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={LoginForm} />
           <ProtectedRouter exact path="/" component={Home} />
+          <ProtectedRouter
+            exact
+            path="/videos/:id"
+            component={VideoCardItemDetails}
+          />
         </Switch>
       </ThemeSelector.Provider>
     )

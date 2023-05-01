@@ -1,9 +1,30 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
+import ReactPlayer from 'react-player'
+import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
+import {MdPlaylistAdd} from 'react-icons/md'
+import {formatDistanceToNow} from 'date-fns'
 import Header from '../Header'
+import SideContainer from '../SideContainer'
+import ThemeSelector from '../../context/ThemeSelector'
+import {
+  VideoItemContainer,
+  LoaderContainer,
+  ItemContainer,
+  PlayerContainer,
+  Heading,
+  ViewsTimeIconContainer,
+  ViewersTimeContainer,
+  ViewsIconContainer,
+  HorizontalRule,
+  LogoItemImage,
+  ItemDetails,
+  RightSideContainer,
+} from './styledComponents'
 
 class VideoCardItemDetails extends Component {
-  state = {isLoading: false, videoItem: {}}
+  state = {isLoading: true, videoItem: {}}
 
   componentDidMount() {
     this.getVideoItemDetails()
@@ -38,17 +59,71 @@ class VideoCardItemDetails extends Component {
       viewCount: videoDetails.view_count,
     }
 
-    this.setState({videoItem: newUpdateData, isLoading: true})
+    this.setState({videoItem: newUpdateData, isLoading: false})
+  }
+
+  renderLoaderViewItem = () => (
+    <LoaderContainer>
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </LoaderContainer>
+  )
+
+  renderItemDetails = () => {
+    const {videoItem} = this.state
+    const {
+      channel,
+      description,
+      publishedAt,
+      title,
+      videoUrl,
+      viewCount,
+    } = videoItem
+    const timeNow = formatDistanceToNow(new Date(2021, 8, 20))
+    return (
+      <ItemContainer>
+        <PlayerContainer>
+          <ReactPlayer url={videoUrl} controls />
+        </PlayerContainer>
+        <Heading>{title}</Heading>
+        <ViewsTimeIconContainer>
+          <ViewersTimeContainer>
+            <p>{viewCount}</p>
+            <p>{timeNow}</p>
+          </ViewersTimeContainer>
+          <ViewersTimeContainer>
+            <p>{viewCount}</p>
+            <p>{timeNow}</p>
+          </ViewersTimeContainer>
+        </ViewsTimeIconContainer>
+      </ItemContainer>
+    )
   }
 
   render() {
     const {videoItem} = this.state
+    console.log(videoItem)
 
     return (
-      <>
-        <Header />
-        <p>person</p>
-      </>
+      <ThemeSelector.Consumer>
+        {value => {
+          const {selectTheme} = value
+          const {isLoading} = this.state
+          console.log(selectTheme)
+          return (
+            <>
+              <Header />
+              <VideoItemContainer>
+                <SideContainer />
+                <RightSideContainer outline={selectTheme}>
+                  {isLoading
+                    ? this.renderLoaderViewItem()
+                    : this.renderItemDetails()}
+                </RightSideContainer>
+              </VideoItemContainer>
+            </>
+          )
+        }}
+      </ThemeSelector.Consumer>
     )
   }
 }
