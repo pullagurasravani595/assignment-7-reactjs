@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {AiFillHome} from 'react-icons/ai'
 import {GiFlamer} from 'react-icons/gi'
 import {SiYoutubegaming} from 'react-icons/si'
@@ -25,26 +26,34 @@ const SideContainer = () => (
       return (
         <>
           <div className={sideContainerClassName}>
-            <div>
-              <div className="home-icon-container">
-                <AiFillHome className="home-icon" />
-                <p className={IconDescription}>Home</p>
-              </div>
-              <div className="home-icon-container">
-                <GiFlamer className={iconColor} />
-                <p className={IconDescription}>Trending</p>
-              </div>
-              <div className="home-icon-container">
-                <SiYoutubegaming className={iconColor} />
-                <p className={IconDescription}>Gaming</p>
-              </div>
-              <div className="home-icon-container">
-                <CgPlayListAdd className={iconColor} />
-                <p className={IconDescription}>Saved videos</p>
-              </div>
-            </div>
+            <ul>
+              <Link to="/" className="nav-link-side-container">
+                <li className="home-icon-container">
+                  <AiFillHome className="home-icon" />
+                  <p className={IconDescription}>Home</p>
+                </li>
+              </Link>
+              <Link to="/trending" className="nav-link-side-container">
+                <li className="home-icon-container">
+                  <GiFlamer className={iconColor} />
+                  <p className={IconDescription}>Trending</p>
+                </li>
+              </Link>
+              <Link to="/gaming" className="nav-link-side-container">
+                <li className="home-icon-container">
+                  <SiYoutubegaming className={iconColor} />
+                  <p className={IconDescription}>Gaming</p>
+                </li>
+              </Link>
+              <Link to="/saved-videos" className="nav-link-side-container">
+                <li className="home-icon-container">
+                  <CgPlayListAdd className={iconColor} />
+                  <p className={IconDescription}>Saved videos</p>
+                </li>
+              </Link>
+            </ul>
             <div className="side-bottom-container">
-              <h1 className={sideContainerBottomHeading}>CONTACT US</h1>
+              <p className={sideContainerBottomHeading}>CONTACT US</p>
               <div className="icon-container">
                 <img
                   src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"

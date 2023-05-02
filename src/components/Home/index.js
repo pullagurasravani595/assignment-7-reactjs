@@ -30,7 +30,6 @@ class Home extends Component {
 
   getVideos = async () => {
     this.setState({apiStatus: apiStatusConstraints.inProgress})
-
     const {searchInput} = this.state
     const jwtToken = Cookies.get('jwt_token')
     const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
@@ -61,6 +60,37 @@ class Home extends Component {
     }
   }
 
+  renderAfterSearchInputDetails = async () => {
+    this.setState({apiStatus: apiStatusConstraints.inProgress})
+    const {searchInput} = this.state
+    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
+    const jwtToken = Cookies.get('jwt_token')
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+    const responseData = await fetch(url, options)
+    if (responseData.ok === true) {
+      const newResponseUpdateData = await responseData.json()
+      const newFormattedData = newResponseUpdateData.videos.map(eachItem => ({
+        channel: eachItem.channel,
+        id: eachItem.id,
+        publishedAt: eachItem.published_at,
+        thumbnailUrl: eachItem.thumbnail_url,
+        title: eachItem.title,
+        viewCount: eachItem.view_count,
+      }))
+      this.setState({
+        videosList: newFormattedData,
+        apiStatus: apiStatusConstraints.success,
+      })
+    } else {
+      this.setState({apiStatus: apiStatusConstraints.failure})
+    }
+  }
+
   renderSuccessView = () => {
     const {videosList} = this.state
     return (
@@ -73,7 +103,7 @@ class Home extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="home-loader">
+    <div className="home-loader" data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
@@ -82,7 +112,7 @@ class Home extends Component {
     <div className="failure-container">
       <img
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
-        alt="home failure"
+        alt="failure view"
         className="failure"
       />
       <h1>Oops! Something Went Wrong</h1>
@@ -130,7 +160,7 @@ class Home extends Component {
       />
       <h1 className="no-search-container-heading">No Search results found</h1>
       <p className="no-search-container-description">
-        Try different keywords or remove search filter
+        Try different key words or remove search filter
       </p>
       <button
         type="button"
@@ -143,7 +173,7 @@ class Home extends Component {
   )
 
   onClickSearchIcon = () => {
-    this.getVideos()
+    this.renderAfterSearchInputDetails()
   }
 
   renderVideoBannerContainer = () => (
@@ -164,11 +194,11 @@ class Home extends Component {
             <SideContainer />
             <div className="main-container">
               {displayPage ? (
-                <div className="second-container">
+                <div className="second-container" data-testid="banner">
                   <div>
                     <img
                       src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                      alt="website logo"
+                      alt="nxt watch logo"
                       className="website-image"
                     />
                     <p className="description">
@@ -183,6 +213,7 @@ class Home extends Component {
                     type="button"
                     className="close-icon-btn"
                     onClick={this.clickPageElement}
+                    data-testid="close"
                   >
                     <AiOutlineClose />
                   </button>
@@ -191,7 +222,7 @@ class Home extends Component {
               <div className={BottomContainerVideo}>
                 <div className="input-search-icon-container">
                   <input
-                    type="text"
+                    type="search"
                     placeholder="search"
                     value={searchInput}
                     className={inputElement}
@@ -201,13 +232,13 @@ class Home extends Component {
                     type="button"
                     className={searchIconBtn}
                     onClick={this.onClickSearchIcon}
+                    data-testid="searchButton"
                   >
                     <AiOutlineSearch />
                   </button>
                 </div>
-                {videosList.length === 0
-                  ? this.renderNoSearchContainer()
-                  : this.renderVideoList()}
+                {this.renderVideoList()}
+                {videosList.length === 0 && this.renderNoSearchContainer()}
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@
 }
 
 .theme-icon {
-  margin-right: 8px;
+  margin-right: 13px;
 }
 
 .logout-btn {
@@ -51,4 +51,14 @@
 .logout-black-theme {
   color: #f9f9f9;
   border: 1px solid #f8fafc;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.theme-btn {
+  background-color: transparent;
+  border: none;
+  height: 30px;
 }

@@ -1,4 +1,4 @@
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {IoMdMoon} from 'react-icons/io'
 import {HiSun} from 'react-icons/hi'
 import './index.css'
@@ -18,9 +18,23 @@ const Header = () => (
         ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
         : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
       const themeIcon = selectTheme ? (
-        <IoMdMoon className="theme-icon" onClick={onClickThemeChange} />
+        <button
+          type="button"
+          onClick={onClickThemeChange}
+          className="theme-btn"
+          data-testid="theme"
+        >
+          <IoMdMoon className="theme-icon" />
+        </button>
       ) : (
-        <HiSun className="theme-icon sun-theme" onClick={onClickThemeChange} />
+        <button
+          type="button"
+          onClick={onClickThemeChange}
+          className="theme-btn"
+          data-testid="theme"
+        >
+          <HiSun className="theme-icon sun-theme" />
+        </button>
       )
       const btnClassName = selectTheme
         ? 'logout-btn'
@@ -28,13 +42,15 @@ const Header = () => (
       return (
         <>
           <div className={headerThemeChange}>
-            <img src={websiteLogo} alt="website logo" className="logo-img" />
+            <Link to="/" className="nav-link">
+              <img src={websiteLogo} alt="website logo" className="logo-img" />
+            </Link>
             <div className="theme-profile-logout-container">
               {themeIcon}
               <img
                 src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
-                alt="profile"
                 className="profile-img"
+                alt="profile"
               />
               <button type="button" className={btnClassName}>
                 Logout

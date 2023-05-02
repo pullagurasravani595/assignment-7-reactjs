@@ -24,7 +24,7 @@ const VideoCard = props => {
           : 'video-heading video-heading-black'
         return (
           <div className="title-count-duration-container">
-            <h1 className={videoHeading}>{title}</h1>
+            <p className={videoHeading}>{title}</p>
             <p className="video-description">{channel.name}</p>
             <div className="view-count-duration-container">
               <p className="video-description">{viewCount}</p>
@@ -39,11 +39,15 @@ const VideoCard = props => {
   return (
     <Link to={`/videos/${id}`} className="nav-link">
       <li className="video-list-container">
-        <img src={thumbnailUrl} alt={title} className="video-card-thumbnail" />
+        <img
+          src={thumbnailUrl}
+          alt="video thumbnail"
+          className="video-card-thumbnail"
+        />
         <div className="video-banner-container">
           <img
             src={channel.profile_image_url}
-            alt="profile"
+            alt="channel logo"
             className="video-card-profile-img"
           />
           {renderVideoCard()}
