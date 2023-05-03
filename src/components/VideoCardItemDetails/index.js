@@ -177,12 +177,12 @@ class VideoCardItemDetails extends Component {
       : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
     return (
       <FailureContainer>
-        <FailureImage src={imageUrlFailure} alt="failure" />
+        <FailureImage src={imageUrlFailure} alt="failure view" />
         <FailureHeading outline={selectTheme}>
           Oops! Something Went Wrong
         </FailureHeading>
         <FailureDescription outline={selectTheme}>
-          We are having some trouble to complete your request.Please Try again
+          We are having some trouble to complete your request. Please try again.
         </FailureDescription>
         <FailureBtn onClick={this.onClickRetryBtn}>Retry</FailureBtn>
       </FailureContainer>

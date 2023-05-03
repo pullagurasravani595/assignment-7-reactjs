@@ -6,6 +6,7 @@ import ThemeSelector from './context/ThemeSelector'
 import ProtectedRouter from './components/ProtectedRouter'
 import VideoCardItemDetails from './components/VideoCardItemDetails'
 import NotFound from './components/NotFound'
+import Trending from './components/Trending'
 import './App.css'
 
 // Replace your code here
