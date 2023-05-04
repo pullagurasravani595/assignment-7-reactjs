@@ -7,6 +7,7 @@ import ProtectedRouter from './components/ProtectedRouter'
 import VideoCardItemDetails from './components/VideoCardItemDetails'
 import NotFound from './components/NotFound'
 import Trending from './components/Trending'
+import Gaming from './components/Gaming'
 import './App.css'
 
 // Replace your code here
@@ -44,6 +45,7 @@ class App extends Component {
             component={VideoCardItemDetails}
           />
           <ProtectedRouter exact path="/trending" component={Trending} />
+          <ProtectedRouter exact path="/gaming" component={Gaming} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
