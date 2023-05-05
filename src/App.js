@@ -8,6 +8,8 @@ import VideoCardItemDetails from './components/VideoCardItemDetails'
 import NotFound from './components/NotFound'
 import Trending from './components/Trending'
 import Gaming from './components/Gaming'
+import SavedVideo from './components/SavedVideo'
+import LogoutPopup from './components/LogoutPopup'
 import './App.css'
 
 // Replace your code here
@@ -46,6 +48,8 @@ class App extends Component {
           />
           <ProtectedRouter exact path="/trending" component={Trending} />
           <ProtectedRouter exact path="/gaming" component={Gaming} />
+          <ProtectedRouter exact path="/saved-videos" component={SavedVideo} />
+          <ProtectedRouter exact path="/logout" component={LogoutPopup} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>

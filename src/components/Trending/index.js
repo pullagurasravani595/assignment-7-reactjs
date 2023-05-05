@@ -74,7 +74,6 @@ class Trending extends Component {
       {value => {
         const {selectTheme} = value
         const {trendingVideoList} = this.state
-        console.log(trendingVideoList)
         return (
           <>
             <BannerContainerSuccess

@@ -58,7 +58,6 @@ class Gaming extends Component {
         apiStatus: apiStatusMode.success,
         gamingVideoList: gamingData,
       })
-      console.log(data)
     } else {
       this.setState({apiStatus: apiStatusMode.failure})
     }
@@ -75,8 +74,12 @@ class Gaming extends Component {
     )
   }
 
+  onClickRetryBtnGaming = () => {
+    this.getGamingVideos()
+  }
+
   renderGamingLoader = () => (
-    <GamingLoader>
+    <GamingLoader data-testid="loader">
       <Loader type="ThreeDots" color="#3b82f6" width="50" height="50" />
     </GamingLoader>
   )
@@ -94,18 +97,20 @@ class Gaming extends Component {
         <FailureGamingDescription outline={selectTheme}>
           We are having some trouble to complete your request. Please try again.
         </FailureGamingDescription>
-        <GamingRetryBtn>Retry</GamingRetryBtn>
+        <GamingRetryBtn type="button" onClick={this.onClickRetryBtnGaming}>
+          Retry
+        </GamingRetryBtn>
       </GamingLoader>
     )
   }
 
-  renderGamingDetails = () => {
+  renderGamingDetails = selectTheme => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusMode.success:
         return this.renderGamingSuccess()
       case apiStatusMode.failure:
-        return this.renderGamingFailure()
+        return this.renderGamingFailure(selectTheme)
       case apiStatusMode.inProgress:
         return this.renderGamingLoader()
       default:
@@ -123,7 +128,10 @@ class Gaming extends Component {
               <Header />
               <GamingContainer>
                 <SideContainer />
-                <RightSideGamingContainer outline={selectTheme}>
+                <RightSideGamingContainer
+                  outline={selectTheme}
+                  data-testid="gaming"
+                >
                   <GamingIconContainer outline={selectTheme}>
                     <GamingIconBgContainer outline={selectTheme}>
                       <GamingIcon>
@@ -134,7 +142,7 @@ class Gaming extends Component {
                       Gaming
                     </GamingIconDescription>
                   </GamingIconContainer>
-                  {this.renderGamingFailure(selectTheme)}
+                  {this.renderGamingDetails(selectTheme)}
                 </RightSideGamingContainer>
               </GamingContainer>
             </>

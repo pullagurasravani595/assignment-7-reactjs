@@ -127,8 +127,8 @@ class VideoCardItemDetails extends Component {
         <Description outline={selectTheme}>{title}</Description>
         <ViewsTimeIconContainer>
           <ViewersTimeContainer>
-            <Description>{viewCount}</Description>
-            <Description> {timeNow}</Description>
+            <Description>{viewCount} . </Description>
+            <Description>{timeNow}</Description>
           </ViewersTimeContainer>
           <ViewersTimeContainer>
             <ViewsIconContainer>
@@ -150,7 +150,9 @@ class VideoCardItemDetails extends Component {
               <ButtonElement onClick={onClickSave} outline={saveBtn}>
                 <MdPlaylistAdd />
               </ButtonElement>
-              <ButtonElement outline={saveBtn}>{saveText}</ButtonElement>
+              <ButtonElement outline={saveBtn} type="button">
+                {saveText}
+              </ButtonElement>
             </ViewsIconContainer>
           </ViewersTimeContainer>
         </ViewsTimeIconContainer>
@@ -204,9 +206,6 @@ class VideoCardItemDetails extends Component {
   }
 
   render() {
-    const {videoItem} = this.state
-    console.log(videoItem)
-
     return (
       <ThemeSelector.Consumer>
         {value => {

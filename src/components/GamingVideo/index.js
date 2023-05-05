@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import ThemeSelector from '../../context/ThemeSelector'
 import {
   ListContainer,
@@ -13,13 +14,15 @@ const GamingVideo = props => (
       const {gamingDetails} = props
       const {id, thumbnailUrl, title, viewCount} = gamingDetails
       return (
-        <ListContainer>
-          <GamingVideoImage src={thumbnailUrl} alt="thumbnailUrl" />
-          <HeadingElement outline={selectTheme}>{title}</HeadingElement>
-          <GamingDescriptionValue outline={selectTheme}>
-            {viewCount} Watching WorldWide
-          </GamingDescriptionValue>
-        </ListContainer>
+        <Link to={`/videos/${id}`}>
+          <ListContainer>
+            <GamingVideoImage src={thumbnailUrl} alt="video thumbnail" />
+            <HeadingElement outline={selectTheme}>{title}</HeadingElement>
+            <GamingDescriptionValue outline={selectTheme}>
+              {viewCount} Watching WorldWide
+            </GamingDescriptionValue>
+          </ListContainer>
+        </Link>
       )
     }}
   </ThemeSelector.Consumer>

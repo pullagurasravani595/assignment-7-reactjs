@@ -13,8 +13,8 @@ export const GamingVideoImage = styled.img`
   width: 100%;
   height: 250px;
 `
-export const HeadingElement = styled.h1`
-  font-size: 22px;
+export const HeadingElement = styled.p`
+  font-size: 18px;
   font-weight: 'bold';
   font-family: 'Roboto';
   color: ${props => (props.outline ? '#1e293b' : '#ffffff')};

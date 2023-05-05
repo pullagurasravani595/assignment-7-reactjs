@@ -108,10 +108,18 @@ class Home extends Component {
     </div>
   )
 
-  renderFailureView = () => (
+  onClickHomeRetryBtn = () => {
+    this.getVideos()
+  }
+
+  renderFailureView = selectTheme => (
     <div className="failure-container">
       <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        src={
+          selectTheme
+            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+        }
         alt="failure view"
         className="failure"
       />
@@ -121,17 +129,20 @@ class Home extends Component {
         <br />
         Please try again
       </p>
+      <button type="button" onClick={this.onClickHomeRetryBtn}>
+        Retry
+      </button>
     </div>
   )
 
-  renderVideoList = () => {
+  renderVideoList = selectTheme => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
       case apiStatusConstraints.success:
         return this.renderSuccessView()
       case apiStatusConstraints.failure:
-        return this.renderFailureView()
+        return this.renderFailureView(selectTheme)
       case apiStatusConstraints.inProgress:
         return this.renderLoadingView()
       default:
@@ -237,7 +248,7 @@ class Home extends Component {
                     <AiOutlineSearch />
                   </button>
                 </div>
-                {this.renderVideoList()}
+                {this.renderVideoList(selectTheme)}
                 {videosList.length === 0 && this.renderNoSearchContainer()}
               </div>
             </div>

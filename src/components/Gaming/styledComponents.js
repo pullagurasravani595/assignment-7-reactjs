@@ -31,7 +31,7 @@ export const GamingIconBgContainer = styled.div`
 export const GamingIcon = styled.p`
   color: #ff0000;
 `
-export const GamingIconDescription = styled.p`
+export const GamingIconDescription = styled.h1`
   color: ${props => (props.outline ? '#1e293b' : '#f8fafc')};
   font-family: 'Roboto';
   font-weight: bold;
