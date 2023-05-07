@@ -1,6 +1,7 @@
 import {withRouter, Link} from 'react-router-dom'
 import {IoMdMoon} from 'react-icons/io'
 import {HiSun} from 'react-icons/hi'
+import LogoutPopup from '../LogoutPopup'
 import './index.css'
 import ThemeSelector from '../../context/ThemeSelector'
 
@@ -53,7 +54,7 @@ const Header = () => (
                 alt="profile"
               />
               <button type="button" className={btnClassName}>
-                Logout
+                <LogoutPopup />
               </button>
             </div>
           </div>

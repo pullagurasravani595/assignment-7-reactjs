@@ -105,7 +105,7 @@ class VideoCardItemDetails extends Component {
     this.setState({likeBtn: false})
   }
 
-  renderItemDetails = (selectTheme, savedListDetails) => {
+  renderItemDetails = (selectTheme, savedListDetails, removedItemToList) => {
     const {videoItem, likeBtn, dislikeBtn, saveBtn} = this.state
     const {
       channel,
@@ -114,15 +114,28 @@ class VideoCardItemDetails extends Component {
       title,
       videoUrl,
       viewCount,
+      id,
     } = videoItem
     const timeNow = formatDistanceToNow(new Date(publishedAt))
-    const onClickSave = () => {
-      this.setState(prevState => ({saveBtn: !prevState.saveBtn}))
+    const clickSaveBtn = () => {
+      this.setState({saveBtn: true})
       savedListDetails(videoItem)
     }
-    const saveText = saveBtn ? 'Saved' : 'Save'
+    const clickSavedBtn = () => {
+      this.setState({saveBtn: false})
+      removedItemToList(id)
+    }
+    const requiredElement = saveBtn ? (
+      <ButtonElement outline={saveBtn} type="button" onClick={clickSavedBtn}>
+        Saved
+      </ButtonElement>
+    ) : (
+      <ButtonElement outline={saveBtn} type="button" onClick={clickSaveBtn}>
+        Save
+      </ButtonElement>
+    )
     return (
-      <ItemContainer>
+      <ItemContainer data-testid="videoItemDetails">
         <ReactPlayer url={videoUrl} width="100%" />
         <Description outline={selectTheme}>{title}</Description>
         <ViewsTimeIconContainer>
@@ -132,27 +145,29 @@ class VideoCardItemDetails extends Component {
           </ViewersTimeContainer>
           <ViewersTimeContainer>
             <ViewsIconContainer>
-              <ButtonElement outline={likeBtn} onClick={this.onClickLikeIcon}>
+              <ButtonElement outline={likeBtn}>
                 <AiOutlineLike />
               </ButtonElement>
-              <ButtonElement outline={likeBtn}>Like</ButtonElement>
+              <ButtonElement outline={likeBtn} onClick={this.onClickLikeIcon}>
+                Like
+              </ButtonElement>
             </ViewsIconContainer>
             <ViewsIconContainer>
+              <ButtonElement outline={dislikeBtn}>
+                <AiOutlineDislike />
+              </ButtonElement>
               <ButtonElement
                 outline={dislikeBtn}
                 onClick={this.onClickDislikeIcon}
               >
-                <AiOutlineDislike />
+                Dislike
               </ButtonElement>
-              <ButtonElement outline={dislikeBtn}>Dislike</ButtonElement>
             </ViewsIconContainer>
             <ViewsIconContainer>
-              <ButtonElement onClick={onClickSave} outline={saveBtn}>
+              <ButtonElement outline={saveBtn}>
                 <MdPlaylistAdd />
               </ButtonElement>
-              <ButtonElement outline={saveBtn} type="button">
-                {saveText}
-              </ButtonElement>
+              {requiredElement}
             </ViewsIconContainer>
           </ViewersTimeContainer>
         </ViewsTimeIconContainer>
@@ -169,7 +184,7 @@ class VideoCardItemDetails extends Component {
     )
   }
 
-  onClickRetryBtn = () => {
+  ItemDetailsBtn = () => {
     this.getVideoItemDetails()
   }
 
@@ -186,16 +201,20 @@ class VideoCardItemDetails extends Component {
         <FailureDescription outline={selectTheme}>
           We are having some trouble to complete your request. Please try again.
         </FailureDescription>
-        <FailureBtn onClick={this.onClickRetryBtn}>Retry</FailureBtn>
+        <FailureBtn onClick={this.ItemDetailsBtn}>Retry</FailureBtn>
       </FailureContainer>
     )
   }
 
-  renderSearchResults = (selectTheme, savedListDetails) => {
+  renderSearchResults = (selectTheme, savedListDetails, removedItemToList) => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusConditions.success:
-        return this.renderItemDetails(selectTheme, savedListDetails)
+        return this.renderItemDetails(
+          selectTheme,
+          savedListDetails,
+          removedItemToList,
+        )
       case apiStatusConditions.failure:
         return this.renderFailureItemView(selectTheme)
       case apiStatusConditions.inProgress:
@@ -209,15 +228,18 @@ class VideoCardItemDetails extends Component {
     return (
       <ThemeSelector.Consumer>
         {value => {
-          const {selectTheme, savedListDetails} = value
-          console.log(selectTheme)
+          const {selectTheme, savedListDetails, removedItemToList} = value
           return (
             <>
               <Header />
               <VideoItemContainer>
                 <SideContainer />
                 <RightSideContainer outline={selectTheme}>
-                  {this.renderSearchResults(selectTheme, savedListDetails)}
+                  {this.renderSearchResults(
+                    selectTheme,
+                    savedListDetails,
+                    removedItemToList,
+                  )}
                 </RightSideContainer>
               </VideoItemContainer>
             </>

@@ -26,6 +26,14 @@ class App extends Component {
     }))
   }
 
+  removedItemToList = id => {
+    const {saveVideosList} = this.state
+    const filterSavedVideosList = saveVideosList.map(
+      eachValue => eachValue.id !== id,
+    )
+    this.setState({saveVideosList: filterSavedVideosList})
+  }
+
   render() {
     const {selectTheme, saveVideosList} = this.state
     console.log(saveVideosList)
@@ -36,19 +44,20 @@ class App extends Component {
           saveVideosList,
           selectThemeChoice: this.selectThemeChoice,
           savedListDetails: this.savedListDetails,
+          removedItemToList: this.removedItemToList,
         }}
       >
         <Switch>
           <Route exact path="/login" component={LoginForm} />
           <ProtectedRouter exact path="/" component={Home} />
+          <ProtectedRouter exact path="/trending" component={Trending} />
+          <ProtectedRouter exact path="/gaming" component={Gaming} />
+          <ProtectedRouter exact path="/saved-videos" component={SavedVideo} />
           <ProtectedRouter
             exact
             path="/videos/:id"
             component={VideoCardItemDetails}
           />
-          <ProtectedRouter exact path="/trending" component={Trending} />
-          <ProtectedRouter exact path="/gaming" component={Gaming} />
-          <ProtectedRouter exact path="/saved-videos" component={SavedVideo} />
           <ProtectedRouter exact path="/logout" component={LogoutPopup} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />

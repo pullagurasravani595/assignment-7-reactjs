@@ -5,6 +5,7 @@ const ThemeSelector = React.createContext({
   saveVideosList: [],
   selectThemeChoice: () => {},
   savedListDetails: () => {},
+  removedItemToList: () => {},
 })
 
 export default ThemeSelector

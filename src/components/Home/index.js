@@ -7,7 +7,27 @@ import Header from '../Header'
 import SideContainer from '../SideContainer'
 import VideoCard from '../VideoCard'
 import ThemeSelector from '../../context/ThemeSelector'
-import './index.css'
+import {
+  BannerContainerHome,
+  RightSideHomeContainer,
+  MainBannerContainer,
+  BannerBgContainer,
+  BannerBgImg,
+  BgContainerDescription,
+  BgBtn,
+  CloseBtn,
+  HomeVideoContainer,
+  InputContainer,
+  InputElement,
+  SearchElement,
+  LoaderContainer,
+  UnOrderListContainerHome,
+  FailureContainerHome,
+  FailureImgElement,
+  FailureHomeHeading,
+  DescriptionFailureHome,
+  HomeFailureBtn,
+} from './styledComponents'
 
 const apiStatusConstraints = {
   success: 'SUCCESS',
@@ -94,18 +114,18 @@ class Home extends Component {
   renderSuccessView = () => {
     const {videosList} = this.state
     return (
-      <ul className="un-order-list-container">
+      <UnOrderListContainerHome className="un-order-list-container">
         {videosList.map(video => (
           <VideoCard videoDetails={video} key={video.id} />
         ))}
-      </ul>
+      </UnOrderListContainerHome>
     )
   }
 
   renderLoadingView = () => (
-    <div className="home-loader" data-testid="loader">
+    <LoaderContainer className="home-loader" data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
-    </div>
+    </LoaderContainer>
   )
 
   onClickHomeRetryBtn = () => {
@@ -113,26 +133,25 @@ class Home extends Component {
   }
 
   renderFailureView = selectTheme => (
-    <div className="failure-container">
-      <img
+    <FailureContainerHome>
+      <FailureImgElement
         src={
           selectTheme
             ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
             : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
         }
         alt="failure view"
-        className="failure"
       />
-      <h1>Oops! Something Went Wrong</h1>
-      <p>
-        We are having some trouble to complete your request.
-        <br />
-        Please try again
-      </p>
-      <button type="button" onClick={this.onClickHomeRetryBtn}>
+      <FailureHomeHeading outline={selectTheme}>
+        Oops! Something Went Wrong
+      </FailureHomeHeading>
+      <DescriptionFailureHome>
+        We are having some trouble to complete your request.Please try again.
+      </DescriptionFailureHome>
+      <HomeFailureBtn type="button" onClick={this.onClickHomeRetryBtn}>
         Retry
-      </button>
-    </div>
+      </HomeFailureBtn>
+    </FailureContainerHome>
   )
 
   renderVideoList = selectTheme => {
@@ -187,78 +206,8 @@ class Home extends Component {
     this.renderAfterSearchInputDetails()
   }
 
-  renderVideoBannerContainer = () => (
-    <ThemeSelector.Consumer>
-      {value => {
-        const {selectTheme} = value
-        const {searchInput, displayPage, videosList} = this.state
-        const containerName = selectTheme
-          ? 'banner-container'
-          : 'black-banner-container'
-        const BottomContainerVideo = selectTheme
-          ? 'small-banner-container'
-          : 'small-banner-container small-banner-container-black'
-        const inputElement = selectTheme ? 'input' : 'input input-black-theme'
-        const searchIconBtn = selectTheme ? 'search-btn' : 'search-icon-black'
-        return (
-          <div className={containerName}>
-            <SideContainer />
-            <div className="main-container">
-              {displayPage ? (
-                <div className="second-container" data-testid="banner">
-                  <div>
-                    <img
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                      alt="nxt watch logo"
-                      className="website-image"
-                    />
-                    <p className="description">
-                      Buy Nxt Watch Premium prepaid plans with <br />
-                      UPI
-                    </p>
-                    <button type="button" className="outline-btn">
-                      GET IT NOW
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    className="close-icon-btn"
-                    onClick={this.clickPageElement}
-                    data-testid="close"
-                  >
-                    <AiOutlineClose />
-                  </button>
-                </div>
-              ) : null}
-              <div className={BottomContainerVideo}>
-                <div className="input-search-icon-container">
-                  <input
-                    type="search"
-                    placeholder="search"
-                    value={searchInput}
-                    className={inputElement}
-                    onChange={this.onchangeSearchInput}
-                  />
-                  <button
-                    type="button"
-                    className={searchIconBtn}
-                    onClick={this.onClickSearchIcon}
-                    data-testid="searchButton"
-                  >
-                    <AiOutlineSearch />
-                  </button>
-                </div>
-                {this.renderVideoList(selectTheme)}
-                {videosList.length === 0 && this.renderNoSearchContainer()}
-              </div>
-            </div>
-          </div>
-        )
-      }}
-    </ThemeSelector.Consumer>
-  )
-
   render() {
+    const {displayPage} = this.state
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken === undefined) {
       return <Redirect to="/login" />
@@ -266,8 +215,65 @@ class Home extends Component {
 
     return (
       <>
-        <Header />
-        {this.renderVideoBannerContainer()}
+        <ThemeSelector.Consumer>
+          {value => {
+            const {selectTheme} = value
+            const {searchInput} = this.state
+            return (
+              <>
+                <Header />
+                <BannerContainerHome>
+                  <SideContainer />
+                  <RightSideHomeContainer
+                    outline={selectTheme}
+                    ata-testid="banner"
+                  >
+                    {displayPage ? (
+                      <MainBannerContainer>
+                        <BannerBgContainer>
+                          <BannerBgImg
+                            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                            alt="nxt watch logo"
+                          />
+                          <BgContainerDescription>
+                            Buy Nxt Watch Premium prepaid plans with <br />
+                            UPI
+                          </BgContainerDescription>
+                          <BgBtn type="button">GET IT NOW</BgBtn>
+                        </BannerBgContainer>
+                        <CloseBtn
+                          type="button"
+                          onClick={this.clickPageElement}
+                          data-testid="close"
+                        >
+                          <AiOutlineClose />
+                        </CloseBtn>
+                      </MainBannerContainer>
+                    ) : null}
+                    <HomeVideoContainer outline={selectTheme}>
+                      <InputContainer>
+                        <InputElement
+                          type="search"
+                          placeholder="search"
+                          value={searchInput}
+                          onChange={this.onchangeSearchInput}
+                        />
+                        <SearchElement
+                          outline={selectTheme}
+                          type="button"
+                          onClick={this.onClickSearchIcon}
+                        >
+                          <AiOutlineSearch />
+                        </SearchElement>
+                      </InputContainer>
+                      {this.renderVideoList()}
+                    </HomeVideoContainer>
+                  </RightSideHomeContainer>
+                </BannerContainerHome>
+              </>
+            )
+          }}
+        </ThemeSelector.Consumer>
       </>
     )
   }
