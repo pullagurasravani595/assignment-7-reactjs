@@ -28,7 +28,7 @@ class App extends Component {
 
   removedItemToList = id => {
     const {saveVideosList} = this.state
-    const filterSavedVideosList = saveVideosList.map(
+    const filterSavedVideosList = saveVideosList.filter(
       eachValue => eachValue.id !== id,
     )
     this.setState({saveVideosList: filterSavedVideosList})

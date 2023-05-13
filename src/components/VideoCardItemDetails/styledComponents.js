@@ -32,12 +32,6 @@ export const ViewsTimeIconContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-export const ViewersTimeContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`
 export const ViewsIconContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -57,6 +51,7 @@ export const LogoItemImage = styled.img`
 export const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 6px;
 `
 export const RightSideContainer = styled.div`
   min-height: 100vh;
@@ -72,8 +67,8 @@ export const RightSideContainer = styled.div`
 export const Description = styled.p`
   color: ${props => (props.outline ? '#3b82f6' : '#909090')};
   font-family: 'Roboto';
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
 `
 export const NewContainer = styled.div`
   display: flex;
@@ -115,4 +110,40 @@ export const FailureBtn = styled.button`
   border-radius: 4px;
   border-width: 0px;
   height: 30px;
+`
+export const TitleDescription = styled.p`
+  color: ${props => (props.outline ? '#1e293b' : '#ffffff')};
+  font-weight: bold;
+  font-family: 'Roboto';
+  font-size: 16px;
+  margin-right: 8px;
+`
+export const DescriptionViewsContainer = styled.p`
+  color: ${props => (props.outline ? '#94a3b8' : ' #cccccc')};
+  font-weight: bold;
+  font-family: 'Roboto';
+  font-size: 12px;
+  margin-right: 8px;
+`
+export const IconElement = styled.div`
+  color: ${props => (props.outline ? '#2563eb' : '#64748b')};
+  margin: 4px;
+`
+export const ChannelName = styled.p`
+  color: ${props => (props.outline ? '#1e293b' : '#ffffff')};
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 500;
+`
+export const SubscriberCount = styled.p`
+  color: ${props => (props.outline ? '#94a3b8' : '#909090')};
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 500;
+`
+export const DescriptionVideo = styled.p`
+  color: ${props => (props.outline ? '#616e7c' : '#f9f9f9')};
+  font-size: 16px;
+  font-family: 'Roboto';
+  font-weight: 500;
 `

@@ -10,23 +10,27 @@ import SideContainer from '../SideContainer'
 import ThemeSelector from '../../context/ThemeSelector'
 import {
   VideoItemContainer,
+  TitleDescription,
   LoaderContainer,
   ItemContainer,
-  Description,
   ViewsTimeIconContainer,
-  ViewersTimeContainer,
+  DescriptionViewsContainer,
   ViewsIconContainer,
+  IconElement,
   HorizontalRule,
+  ChannelName,
   LogoItemImage,
+  SubscriberCount,
+  DescriptionVideo,
   ItemDetails,
   RightSideContainer,
-  NewContainer,
   ButtonElement,
   FailureContainer,
   FailureImage,
   FailureHeading,
   FailureDescription,
   FailureBtn,
+  NewContainer,
 } from './styledComponents'
 
 const apiStatusConditions = {
@@ -105,113 +109,144 @@ class VideoCardItemDetails extends Component {
     this.setState({likeBtn: false})
   }
 
-  renderItemDetails = (selectTheme, savedListDetails, removedItemToList) => {
-    const {videoItem, likeBtn, dislikeBtn, saveBtn} = this.state
-    const {
-      channel,
-      description,
-      publishedAt,
-      title,
-      videoUrl,
-      viewCount,
-      id,
-    } = videoItem
-    const timeNow = formatDistanceToNow(new Date(publishedAt))
-    const clickSaveBtn = () => {
-      this.setState({saveBtn: true})
-      savedListDetails(videoItem)
-    }
-    const clickSavedBtn = () => {
-      this.setState({saveBtn: false})
-      removedItemToList(id)
-    }
-    const requiredElement = saveBtn ? (
-      <ButtonElement outline={saveBtn} type="button" onClick={clickSavedBtn}>
-        Saved
-      </ButtonElement>
-    ) : (
-      <ButtonElement outline={saveBtn} type="button" onClick={clickSaveBtn}>
-        Save
-      </ButtonElement>
-    )
-    return (
-      <ItemContainer data-testid="videoItemDetails">
-        <ReactPlayer url={videoUrl} width="100%" />
-        <Description outline={selectTheme}>{title}</Description>
-        <ViewsTimeIconContainer>
-          <ViewersTimeContainer>
-            <Description>{viewCount} . </Description>
-            <Description>{timeNow}</Description>
-          </ViewersTimeContainer>
-          <ViewersTimeContainer>
-            <ViewsIconContainer>
-              <ButtonElement outline={likeBtn}>
-                <AiOutlineLike />
-              </ButtonElement>
-              <ButtonElement outline={likeBtn} onClick={this.onClickLikeIcon}>
-                Like
-              </ButtonElement>
-            </ViewsIconContainer>
-            <ViewsIconContainer>
-              <ButtonElement outline={dislikeBtn}>
-                <AiOutlineDislike />
-              </ButtonElement>
-              <ButtonElement
-                outline={dislikeBtn}
-                onClick={this.onClickDislikeIcon}
-              >
-                Dislike
-              </ButtonElement>
-            </ViewsIconContainer>
-            <ViewsIconContainer>
-              <ButtonElement outline={saveBtn}>
-                <MdPlaylistAdd />
-              </ButtonElement>
-              {requiredElement}
-            </ViewsIconContainer>
-          </ViewersTimeContainer>
-        </ViewsTimeIconContainer>
-        <HorizontalRule />
-        <NewContainer>
-          <LogoItemImage src={channel.profile_image_url} alt="channel logo" />
-          <ItemDetails>
-            <Description outline={selectTheme}>{channel.name}</Description>
-            <Description>{channel.subscriber_count} subscribers</Description>
-            <Description>{description}</Description>
-          </ItemDetails>
-        </NewContainer>
-      </ItemContainer>
-    )
-  }
-
   ItemDetailsBtn = () => {
     this.getVideoItemDetails()
   }
 
   renderFailureItemView = selectTheme => {
-    const imageUrlFailure = selectTheme
+    const failureImageUrl = selectTheme
       ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
       : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
     return (
       <FailureContainer>
-        <FailureImage src={imageUrlFailure} alt="failure view" />
+        <FailureImage src={failureImageUrl} alt="failure view" />
         <FailureHeading outline={selectTheme}>
           Oops! Something Went Wrong
         </FailureHeading>
         <FailureDescription outline={selectTheme}>
           We are having some trouble to complete your request. Please try again.
         </FailureDescription>
-        <FailureBtn onClick={this.ItemDetailsBtn}>Retry</FailureBtn>
+        <FailureBtn type="button" onClick={this.ItemDetailsBtn}>
+          Retry
+        </FailureBtn>
       </FailureContainer>
     )
   }
 
-  renderSearchResults = (selectTheme, savedListDetails, removedItemToList) => {
+  renderSuccessDetails = (
+    selectTheme,
+    saveVideosList,
+    savedListDetails,
+    removedItemToList,
+  ) => {
+    const {videoItem, likeBtn, dislikeBtn} = this.state
+    const {
+      videoUrl,
+      title,
+      viewCount,
+      publishedAt,
+      channel,
+      description,
+      id,
+    } = videoItem
+
+    const isActiveList = saveVideosList.filter(eachFound => eachFound.id === id)
+    const isFound = isActiveList.length === 0 ? 'save' : 'saved'
+    console.log(isActiveList)
+
+    const onClickSaveText = () => {
+      savedListDetails(videoItem)
+    }
+
+    const onClickSavedBtn = () => {
+      removedItemToList(id)
+    }
+
+    return (
+      <>
+        <ItemContainer>
+          <ReactPlayer url={videoUrl} width="100%" />
+          <TitleDescription outline={selectTheme}>{title}</TitleDescription>
+          <ViewsTimeIconContainer>
+            <ViewsIconContainer>
+              <DescriptionViewsContainer outline={selectTheme}>
+                {viewCount} views
+              </DescriptionViewsContainer>
+              <DescriptionViewsContainer outline={selectTheme}>
+                .
+              </DescriptionViewsContainer>
+              <DescriptionViewsContainer outline={selectTheme}>
+                {formatDistanceToNow(new Date(publishedAt))}
+              </DescriptionViewsContainer>
+            </ViewsIconContainer>
+            <ViewsIconContainer>
+              <ViewsIconContainer>
+                <NewContainer onClick={this.onClickLikeIcon}>
+                  <IconElement outline={likeBtn}>
+                    <AiOutlineLike />
+                  </IconElement>
+                  <ButtonElement outline={likeBtn}>Like</ButtonElement>
+                </NewContainer>
+              </ViewsIconContainer>
+              <ViewsIconContainer>
+                <NewContainer onClick={this.onClickDislikeIcon}>
+                  <IconElement outline={dislikeBtn}>
+                    <AiOutlineDislike />
+                  </IconElement>
+                  <ButtonElement outline={dislikeBtn}>Dislike</ButtonElement>
+                </NewContainer>
+              </ViewsIconContainer>
+              <ViewsIconContainer>
+                <IconElement>
+                  <MdPlaylistAdd />
+                </IconElement>
+                {isFound === 'saved' ? (
+                  <ButtonElement type="button" onClick={onClickSavedBtn}>
+                    Saved
+                  </ButtonElement>
+                ) : (
+                  <ButtonElement onClick={onClickSaveText} type="button">
+                    Save
+                  </ButtonElement>
+                )}
+              </ViewsIconContainer>
+            </ViewsIconContainer>
+          </ViewsTimeIconContainer>
+          <HorizontalRule />
+          <NewContainer>
+            <ViewsIconContainer>
+              <LogoItemImage
+                src={channel.profile_image_url}
+                alt="channel logo"
+              />
+              <ItemDetails>
+                <ChannelName outline={selectTheme}>{channel.name}</ChannelName>
+                <SubscriberCount outline={selectTheme}>
+                  {channel.subscriber_count} subscribers
+                </SubscriberCount>
+                <DescriptionVideo outline={selectTheme}>
+                  {description}
+                </DescriptionVideo>
+              </ItemDetails>
+            </ViewsIconContainer>
+          </NewContainer>
+        </ItemContainer>
+      </>
+    )
+  }
+
+  renderSearchResults = (
+    selectTheme,
+    saveVideosList,
+    savedListDetails,
+    removedItemToList,
+  ) => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusConditions.success:
-        return this.renderItemDetails(
+        return this.renderSuccessDetails(
           selectTheme,
+          saveVideosList,
           savedListDetails,
           removedItemToList,
         )
@@ -228,7 +263,12 @@ class VideoCardItemDetails extends Component {
     return (
       <ThemeSelector.Consumer>
         {value => {
-          const {selectTheme, savedListDetails, removedItemToList} = value
+          const {
+            selectTheme,
+            savedListDetails,
+            removedItemToList,
+            saveVideosList,
+          } = value
           return (
             <>
               <Header />
@@ -237,6 +277,7 @@ class VideoCardItemDetails extends Component {
                 <RightSideContainer outline={selectTheme}>
                   {this.renderSearchResults(
                     selectTheme,
+                    saveVideosList,
                     savedListDetails,
                     removedItemToList,
                   )}
