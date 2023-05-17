@@ -45,7 +45,6 @@ class VideoCardItemDetails extends Component {
     videoItem: {},
     likeBtn: false,
     dislikeBtn: false,
-    saveBtn: false,
     apiStatus: apiStatusConditions.initial,
   }
 
@@ -113,13 +112,17 @@ class VideoCardItemDetails extends Component {
     this.getVideoItemDetails()
   }
 
-  renderFailureItemView = selectTheme => {
-    const failureImageUrl = selectTheme
-      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
-      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
-    return (
+  renderFailureItemView = selectTheme => (
+    <>
       <FailureContainer>
-        <FailureImage src={failureImageUrl} alt="failure view" />
+        <FailureImage
+          src={
+            selectTheme
+              ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+              : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+          }
+          alt="failure view"
+        />
         <FailureHeading outline={selectTheme}>
           Oops! Something Went Wrong
         </FailureHeading>
@@ -130,8 +133,8 @@ class VideoCardItemDetails extends Component {
           Retry
         </FailureBtn>
       </FailureContainer>
-    )
-  }
+    </>
+  )
 
   renderSuccessDetails = (
     selectTheme,

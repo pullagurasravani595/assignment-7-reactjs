@@ -87,19 +87,19 @@ export const FailureContainer = styled.div`
   align-items: center;
 `
 export const FailureImage = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 320px;
 `
-export const FailureHeading = styled.img`
+export const FailureHeading = styled.h1`
   color: ${props => (props.outline ? '#00306e' : '#ffffff')};
   font-family: 'Roboto';
-  font-size: '20px';
+  font-size: '10px';
   font-weight: 500;
 `
 export const FailureDescription = styled.p`
   color: ${props => (props.outline ? '#7e858e' : '#f4f4f4')};
   font-family: 'Roboto';
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
 `
 export const FailureBtn = styled.button`
