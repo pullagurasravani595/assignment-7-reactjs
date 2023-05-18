@@ -2,7 +2,6 @@ import {withRouter} from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import Cookies from 'js-cookie'
 import ThemeSelector from '../../context/ThemeSelector'
-import 'reactjs-popup/dist/index.css'
 import {
   LogoutBtn,
   PopupContainer,

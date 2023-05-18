@@ -23,17 +23,18 @@ const TrendingVideoCard = props => (
         publishedAt,
         id,
       } = cardDetails
-      const Duration = formatDistanceToNow(new Date(publishedAt))
+      const duration = formatDistanceToNow(new Date(publishedAt))
       return (
         <Link to={`/videos/${id}`}>
           <ListContainer data-testid="trending">
-            <ThumbnailImage src={thumbnailUrl} alt="thumbnail image" />
+            <ThumbnailImage src={thumbnailUrl} alt="video thumbnai" />
             <DetailsContainer>
               <Heading outline={selectTheme}>{title}</Heading>
               <DescriptionElement>{channel.name}</DescriptionElement>
               <ViewsTimeContainer>
                 <DescriptionElement>{viewCount}</DescriptionElement>
-                <DescriptionElement>. {Duration}</DescriptionElement>
+                <DescriptionElement>.</DescriptionElement>
+                <DescriptionElement>{duration}</DescriptionElement>
               </ViewsTimeContainer>
             </DetailsContainer>
           </ListContainer>

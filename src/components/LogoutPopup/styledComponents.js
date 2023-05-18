@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const PopupContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => (props.outline ? '#f1f5f9' : '#313131')};
+  background-color: ${props => (props.outline ? '#ffffff' : '#313131')};
   padding: 20px;
 `
 export const LogoutBtn = styled.button`

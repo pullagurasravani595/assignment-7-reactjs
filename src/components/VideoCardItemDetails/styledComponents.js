@@ -61,7 +61,6 @@ export const RightSideContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   background-color: ${props => (props.outline ? '#ffffff' : '#0f0f0f')};
-  background-size: cover;
 `
 
 export const Description = styled.p`

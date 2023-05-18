@@ -35,7 +35,7 @@ export const IconNameSave = styled.p`
   color: #ff0000;
   font-weight: bold;
 `
-export const RouterName = styled.p`
+export const RouterName = styled.h1`
   color: ${props => (props.outline ? '#1e293b' : '#ffffff')};
   font-weight: bold;
   font-family: 'Roboto';

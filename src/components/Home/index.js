@@ -27,6 +27,11 @@ import {
   FailureHomeHeading,
   DescriptionFailureHome,
   HomeFailureBtn,
+  NoSearchContainer,
+  NoSearchImg,
+  NoSearchHeading,
+  NoSearchParagraph,
+  NoSearchBtn,
 } from './styledComponents'
 
 const apiStatusConstraints = {
@@ -111,12 +116,12 @@ class Home extends Component {
     }
   }
 
-  renderSuccessView = () => {
+  renderVideoView = () => {
     const {videosList} = this.state
     return (
-      <UnOrderListContainerHome className="un-order-list-container">
-        {videosList.map(video => (
-          <VideoCard videoDetails={video} key={video.id} />
+      <UnOrderListContainerHome>
+        {videosList.map(eachItem => (
+          <VideoCard videoDetails={eachItem} key={eachItem.id} />
         ))}
       </UnOrderListContainerHome>
     )
@@ -154,6 +159,14 @@ class Home extends Component {
     </FailureContainerHome>
   )
 
+  renderSuccessView = () => {
+    const {videosList} = this.state
+    if (videosList.length === 0) {
+      return this.renderNoSearchContainer()
+    }
+    return this.renderVideoView()
+  }
+
   renderVideoList = selectTheme => {
     const {apiStatus} = this.state
 
@@ -182,24 +195,32 @@ class Home extends Component {
   }
 
   renderNoSearchContainer = () => (
-    <div className="no-search-container">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-        alt="no videos"
-        className="no-search-image"
-      />
-      <h1 className="no-search-container-heading">No Search results found</h1>
-      <p className="no-search-container-description">
-        Try different key words or remove search filter
-      </p>
-      <button
-        type="button"
-        className="no-search-retry-btn"
-        onClick={this.noSearchRetryBtnClick}
-      >
-        Retry
-      </button>
-    </div>
+    <ThemeSelector.Consumer>
+      {value => {
+        const {selectTheme} = value
+        return (
+          <NoSearchContainer>
+            <NoSearchImg
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+              alt="no videos"
+            />
+            <NoSearchHeading outline={selectTheme}>
+              No Search results found
+            </NoSearchHeading>
+            <NoSearchParagraph outline={selectTheme}>
+              Try different key words or remove search filter
+            </NoSearchParagraph>
+            <NoSearchBtn
+              type="button"
+              className="no-search-retry-btn"
+              onClick={this.noSearchRetryBtnClick}
+            >
+              Retry
+            </NoSearchBtn>
+          </NoSearchContainer>
+        )
+      }}
+    </ThemeSelector.Consumer>
   )
 
   onClickSearchIcon = () => {
@@ -230,7 +251,7 @@ class Home extends Component {
                   >
                     {displayPage ? (
                       <MainBannerContainer>
-                        <BannerBgContainer>
+                        <BannerBgContainer data-testid="banner">
                           <BannerBgImg
                             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
                             alt="nxt watch logo"
@@ -250,7 +271,10 @@ class Home extends Component {
                         </CloseBtn>
                       </MainBannerContainer>
                     ) : null}
-                    <HomeVideoContainer outline={selectTheme}>
+                    <HomeVideoContainer
+                      outline={selectTheme}
+                      data-testid="home"
+                    >
                       <InputContainer>
                         <InputElement
                           type="search"
@@ -262,6 +286,7 @@ class Home extends Component {
                           outline={selectTheme}
                           type="button"
                           onClick={this.onClickSearchIcon}
+                          data-testid="searchButton"
                         >
                           <AiOutlineSearch />
                         </SearchElement>

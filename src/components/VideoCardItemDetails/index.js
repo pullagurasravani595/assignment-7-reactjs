@@ -67,25 +67,24 @@ class VideoCardItemDetails extends Component {
     const url = `https://apis.ccbp.in/videos/${id}`
     const response = await fetch(url, options)
     const itemData = await response.json()
-    const updateData = {
-      videoDetails: itemData.video_details,
-    }
-    const {videoDetails} = updateData
-    const newUpdateData = {
-      channel: videoDetails.channel,
-      description: videoDetails.description,
-      id: videoDetails.id,
-      publishedAt: videoDetails.published_at,
-      thumbnailUrl: videoDetails.thumbnail_url,
-      title: videoDetails.title,
-      videoUrl: videoDetails.video_url,
-      viewCount: videoDetails.view_count,
-    }
-
     if (response.ok === true) {
+      const updateData = {
+        videoDetails: itemData.video_details,
+      }
+      const {videoDetails} = updateData
+      const newUpdateData = {
+        id: videoDetails.id,
+        channel: videoDetails.channel,
+        description: videoDetails.description,
+        publishedAt: videoDetails.published_at,
+        thumbnailUrl: videoDetails.thumbnail_url,
+        title: videoDetails.title,
+        videoUrl: videoDetails.video_url,
+        viewCount: videoDetails.view_count,
+      }
       this.setState({
-        videoItem: newUpdateData,
         apiStatus: apiStatusConditions.success,
+        videoItem: newUpdateData,
       })
     } else {
       this.setState({apiStatus: apiStatusConditions.failure})
@@ -277,7 +276,10 @@ class VideoCardItemDetails extends Component {
               <Header />
               <VideoItemContainer>
                 <SideContainer />
-                <RightSideContainer outline={selectTheme}>
+                <RightSideContainer
+                  outline={selectTheme}
+                  data-testid="videoItemDetails"
+                >
                   {this.renderSearchResults(
                     selectTheme,
                     saveVideosList,

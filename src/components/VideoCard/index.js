@@ -28,7 +28,8 @@ const VideoCard = props => {
             <p className="video-description">{channel.name}</p>
             <div className="view-count-duration-container">
               <p className="video-description">{viewCount}</p>
-              <p className="video-description">. {duration}</p>
+              <p className="video-description">.</p>
+              <p className="video-description">{duration}</p>
             </div>
           </div>
         )

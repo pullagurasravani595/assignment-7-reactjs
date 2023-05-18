@@ -12,8 +12,6 @@ const Header = () => (
       const onClickThemeChange = () => {
         selectThemeChoice()
       }
-      const onClickLogout = () => <LogoutPopup />
-
       const headerThemeChange = selectTheme
         ? 'header-container'
         : 'header-container header-container-theme'

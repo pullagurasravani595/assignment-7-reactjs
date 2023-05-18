@@ -33,7 +33,7 @@ export const IconElement = styled.div`
   font-weight: bold;
   margin-right: 15px;
 `
-export const Description = styled.p`
+export const Description = styled.h1`
   color: ${props => (props.outline ? '#1e293b' : '#ffffff')};
   font-size: 20px;
   font-family: 'Roboto';

@@ -17,7 +17,7 @@ export const DetailsContainer = styled.div`
   width: 60%;
   margin-left: 25px;
 `
-export const Heading = styled.h1`
+export const Heading = styled.p`
   font-family: 'Roboto';
   font-size: 24px;
   font-weight: 500;

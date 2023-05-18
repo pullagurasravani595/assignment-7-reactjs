@@ -7,7 +7,7 @@ export const BannerContainerHome = styled.div`
 export const RightSideHomeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => (props.outline ? '#ffffff' : '#0f0f0f')};
+  background-color: ${props => (props.outline ? '#ffffff' : '#181818')};
   min-height: 100vh;
   width: 80%;
   background-size: cover;
@@ -127,4 +127,34 @@ export const HomeFailureBtn = styled.button`
   width: 60px;
   border-width: 0px;
   border-radius: 3px;
+`
+export const NoSearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+export const NoSearchImg = styled.img`
+  height: 320px;
+  width: 320px;
+`
+
+export const NoSearchHeading = styled.h1`
+  color: ${props => (props.outline ? '#1e293b' : '#ffffff')};
+  font-size: 20px;
+  font-family: 'Roboto';
+`
+export const NoSearchParagraph = styled.p`
+  color: ${props => (props.outline ? '#64748b' : '#ffffff')};
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: bold;
+`
+export const NoSearchBtn = styled.button`
+  background-color: #4f46e5;
+  height: 30px;
+  width: 60px;
+  border-radius: 4px;
+  border-width: 0px;
+  color: #ffffff;
 `

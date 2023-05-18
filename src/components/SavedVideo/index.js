@@ -26,14 +26,17 @@ const SavedVideo = () => (
           <Header />
           <SaveVideoContainer>
             <SideContainer />
-            <SavedRightContainer outline={selectTheme}>
+            <SavedRightContainer
+              outline={selectTheme}
+              data-testid="savedVideos"
+            >
               <IconContainer outline={selectTheme}>
                 <IconDisplayContainer outline={selectTheme}>
                   <IconNameSave>
                     <GoFlame />
                   </IconNameSave>
                 </IconDisplayContainer>
-                <RouterName outline={selectTheme}>Saved videos</RouterName>
+                <RouterName outline={selectTheme}>Saved Videos</RouterName>
               </IconContainer>
               {saveVideosList.length === 0 ? (
                 <NoVideoContainer>
